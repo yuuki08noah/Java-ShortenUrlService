@@ -54,6 +54,7 @@ public class SimpleShortenUrlService {
     shortenUrlRepository.saveShortenUrl(shortenUrl);
     return shortenUrl.getOriginalUrl();
   }
+
   private String repeatIfShortenKeyExists() throws LackOfShortenUrlKeyException {
     String shortenUrlKey = ShortenUrl.generateShortenedUrl();
     final int MAX_RETRY_COUNT = 5;
