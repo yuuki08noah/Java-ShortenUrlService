@@ -30,7 +30,9 @@ public class ShortenUrlRestController {
   }
 
   @GetMapping(value = "/{shortenUrlKey}")
-  public ResponseEntity redirectShortenUrl(@PathVariable("shortenUrlKey") String shortenUrlKey) {
+  public ResponseEntity<?> redirectShortenUrl(
+          @PathVariable("shortenUrlKey") String shortenUrlKey
+  ) {
     String originalUrl = simpleShortenUrlService.getOriginalUrl(shortenUrlKey);
     URI redirectURI = URI.create(originalUrl);
     HttpHeaders httpHeaders = new HttpHeaders();

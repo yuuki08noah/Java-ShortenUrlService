@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import shorten.shortenurlservice.domain.ShortenUrl;
 import shorten.shortenurlservice.domain.ShortenUrlRepository;
 import shorten.shortenurlservice.domain.exception.LackOfShortenUrlKeyException;
+import shorten.shortenurlservice.domain.exception.NotFoundShortenUrlException;
 import shorten.shortenurlservice.presentation.dto.request.ShortenUrlCreateRequestDto;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +38,21 @@ class SimpleShortenUrlServiceUnitTest {
     // then
     Assertions.assertThrows(LackOfShortenUrlKeyException.class, () -> {
       simpleShortenUrlService.generateShortenUrl(shortenUrlCreateRequestDto);
+    });
+  }
+
+  @Test
+  @DisplayName("없는 키를 조회한다면 NotFoundShortenUrlException 을 throw 한다.")
+  void throwNotFoundShortenUrlException() {
+    // given
+    String key = "random-key";
+
+    // when: Mock 객체의 수행 흐름을 적어줘야 한다.
+    when(shortenUrlRepository.findShortenUrlByShortenUrlKey(any())).thenReturn(null);
+
+    // then
+    Assertions.assertThrows(NotFoundShortenUrlException.class, () -> {
+      simpleShortenUrlService.getOriginalUrl(key);
     });
   }
 }
