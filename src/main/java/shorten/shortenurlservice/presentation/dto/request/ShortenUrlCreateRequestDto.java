@@ -7,6 +7,10 @@ public class ShortenUrlCreateRequestDto {
   @NotNull
   private String originalUrl;
 
+  public ShortenUrlCreateRequestDto(String originalUrl) {
+    this.originalUrl = originalUrl;
+  }
+
   public String getOriginalUrl() {
     return originalUrl;
   }
